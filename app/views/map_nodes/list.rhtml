@@ -1,0 +1,33 @@
+<h1>Listing map_nodes</h1>
+
+<table>
+  <tr>
+  <% for column in MapNode.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+    <th>Exits</th>
+  </tr>
+  
+<% for map_node in @map_nodes %>
+  <tr>
+  <% for column in MapNode.content_columns %>
+    <td><%=h map_node.send(column.name) %></td>
+  <% end %>
+    <td> <% for node in map_node.source_paths%>
+            <%= node.name %><br />
+         <% end %>
+    </td>
+    <td><%= link_to 'Show', :action => 'show', :id => map_node %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => map_node %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => map_node }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @map_node_pages.current.previous } if @map_node_pages.current.previous %>
+<%= link_to 'Next page', { :page => @map_node_pages.current.next } if @map_node_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New map_node', :action => 'new' %>
+<%= link_to 'Graph', :action=> 'graph'%>

@@ -1,0 +1,20 @@
+<% for column in MapNode.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @map_node.send(column.name) %>
+</p>
+<% end %>
+<p><b>Paths Out</b><br/>
+   <% for node in @nodes %>
+       <% next if node == @map_node %>
+       <input  type="checkbox"
+               disabled="true"
+               id="<%=node.id%>"
+               name="node_ids[]"
+               value="<%=node.id%>"
+               <%if @map_node.source_paths.include? node%>checked="checked"<%end%>
+       > <%=node.name%>
+   <% end %>
+</p>
+
+<%= link_to 'Edit', :action => 'edit', :id => @map_node %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,25 @@
+<%= error_messages_for 'map_node' %>
+
+<!--[form:map_node]-->
+<p><label for="map_node_name">Name</label><br/>
+<%= text_field 'map_node', 'name'  %></p>
+
+<p><label for="map_node_description">Description</label><br/>
+<%= text_field 'map_node', 'description'  %></p>
+
+<p><label for="map_node_text">Text</label><br/>
+<%= text_field 'map_node', 'text'  %></p>
+
+<p><label for="map_node_paths">Paths Out</label><br/>
+   <% for node in @nodes %>
+       <% next if node == @map_node %>
+       <input  type="checkbox"
+               id="<%=node.id%>"
+               name="node_ids[]"
+               value="<%=node.id%>"
+               <%if @map_node.source_paths.include? node%>checked="checked"<%end%>
+       > <%=node.name%>
+   <% end %>
+</p>
+<!--[eoform:map_node]-->
+
